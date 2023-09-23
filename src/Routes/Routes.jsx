@@ -27,8 +27,8 @@ const router = createBrowserRouter([
                 element: <Register></Register>
             },
             {
-                path:'/terms',
-                element:<Terms></Terms>
+                path: '/terms',
+                element: <Terms></Terms>
             }
         ]
     },
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             {
                 path: ':id',
                 element: <Category></Category>,
-                loader: ({ params }) => fetch(`http://localhost:1200/categories/${params.id}`)
+                loader: ({ params }) => fetch(`https://the-dragon-news-server-9drwyfv5w-prodeveloperbd2.vercel.app/categories/${params.id}`)
             }
         ]
     },
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
             {
                 path: ':id',
                 element: <PrivateRoutes><News></News></PrivateRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:1200/news/${params.id}`)
+                loader: ({ params }) => fetch(`https://the-dragon-news-server-9drwyfv5w-prodeveloperbd2.vercel.app/news/${params.id}`)
             }
         ]
     }

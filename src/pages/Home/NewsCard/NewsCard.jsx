@@ -3,8 +3,9 @@ import React from 'react';
 import { Image } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { FaEye, FaRegBookmark, FaRegStar, FaShareAlt, FaStar } from 'react-icons/fa';
-import Rating from 'react-rating';
+import { Rating } from '@smastrom/react-rating';
 import { Link } from 'react-router-dom';
+import '@smastrom/react-rating/style.css';
 
 const NewsCard = (props) => {
     const { title, _id, details, image_url, author, rating, total_view } = props.news;
@@ -29,15 +30,9 @@ const NewsCard = (props) => {
                 </Card.Body>
                 <Card.Footer className="text-muted">
                     <div className='d-flex justify-content-between align-items-center'>
-                        <div>
-                            <Rating
-                                placeholderRating={rating.number}
-                                readonly
-                                emptySymbol={<FaRegStar></FaRegStar>}
-                                placeholderSymbol={<FaStar className='text-warning'></FaStar>}
-                                fullSymbol={<FaStar></FaStar>}
-                            ></Rating>
-                            <span> {rating.number}</span>
+                        <div className='d-flex'>
+                            <Rating style={{ maxWidth: 100 }} value={Math.round(rating?.number || 0)} readOnly></Rating>
+                            <span className='ms-1'> {rating?.number}</span>
                         </div>
                         <div>
                             <FaEye></FaEye> {total_view}
