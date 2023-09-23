@@ -5,20 +5,15 @@ import { Col, Container, Row } from 'react-bootstrap';
 import RightNav from '../pages/Shered/RightNav/RightNav';
 import LeftNav from '../pages/Shered/LeftNav/LeftNav';
 import { Outlet } from 'react-router-dom';
-import NavigationBar from '../pages/Shered/NavigartionBar/NavigationBar';
 
-const Main = () => {
+const NewsLayout = () => {
     return (
         <div>
-            <Header></Header>
-            <NavigationBar></NavigationBar>
+             <Header></Header>
             <Container>
                 <Row>
-                    <Col lg={3}>
-                        <LeftNav></LeftNav>
-                    </Col>
-                    <Col lg={6}>
-                        <Outlet></Outlet>
+                    <Col lg={9}>
+                       <Outlet></Outlet>
                     </Col>
                     <Col lg={3}>
                         <RightNav></RightNav>
@@ -30,4 +25,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default NewsLayout;
