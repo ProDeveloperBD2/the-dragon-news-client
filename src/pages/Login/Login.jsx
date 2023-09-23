@@ -1,17 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
 const Login = () => {
+    const { signInUser } = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate();
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/category/0';
     const handleLoginSumbit = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+        setErrorMessage('')
         console.log(`
         Email: ${email}
         Password: ${password}
         `)
+        signInUser(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log('error', error.message)
+                setErrorMessage(error.message)
+            })
     }
-    
+
     return (
         <div>
             <div className='mx-auto shadow mt-5 py-5 px-5 mb-5' style={{ width: '40%' }}>
@@ -24,9 +41,10 @@ const Login = () => {
                     <label>
                         Password
                     </label><br />
-                    <input className='w-100 px-2 py-1 fw-semibold bg-light mb-5 rounded' style={{ fontSize: '20px', border: 'none' }} type="password" name="password" id="password" placeholder='Enter Your Password' required />
+                    <input className='w-100 px-2 py-1 fw-semibold bg-light rounded' style={{ fontSize: '20px', border: 'none' }} type="password" name="password" id="password" placeholder='Enter Your Password' required />
                     <br />
-                    <button className='bg-black fw-semibold text-white' style={{ fontSize: '20px', width: '100%', border: 'none', padding: '6px' }}>Login</button>
+                    <p className='text-danger'>{errorMessage}</p>
+                    <button className='bg-black fw-semibold text-white mt-4' style={{ fontSize: '20px', width: '100%', border: 'none', padding: '6px' }}>Login</button>
                     <p className='text-center mt-3'>Dont’t Have An Account ? <Link className='text-danger fw-semibold mx-auto' to="/register">Register</Link></p>
                 </form>
             </div>
